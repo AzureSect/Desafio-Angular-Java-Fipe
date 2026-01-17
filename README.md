@@ -1,24 +1,31 @@
-# Desafio Angular-Java-Fipe
+# 🚗 Desafio Fullstack: Analisador Tabela Fipe
 
-Este projeto tem como objetivo integrar uma aplicação frontend em Angular com um microsserviço em Java para consulta e análise de valores da Tabela Fipe.
+Este projeto integra uma aplicação **Angular 14** com um microsserviço **Java 17 (Spring Boot 4)** para consulta, persistência e análise de variação de preços de veículos baseados na Tabela Fipe.
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Tecnologias e Versões
 
 ### Frontend
-- **Angular 14**: Framework base para a construção da interface SPA.
-- **Tailwind CSS**: Framework de estilização utility-first para um design moderno e responsivo.
-- **RxJS**: Gerenciamento de fluxos de dados e chamadas assíncronas.
+- **Angular 14**: Framework base para a interface SPA.
+- **Tailwind CSS**: Estilização utility-first para design moderno e responsivo.
+- **TypeScript**: Tipagem estática para maior segurança no desenvolvimento.
 
-### Backend (Microsserviço)
-- **Java 17**: Versão LTS utilizada para garantir recursos modernos da linguagem.
-- **Spring Boot 2.7/3.x**: Framework para construção do microsserviço RESTful.
-- **SQLite**: Banco de dados local (arquivo) para persistência simplificada sem necessidade de instalação externa.
-- **Spring Data JPA**: Abstração de acesso a dados.
+### Backend
+- **Java 17**: Versão base para o microsserviço.
+- **Spring Boot 4.0.1**: Framework de última geração para APIs RESTful.
+- **Spring Cloud OpenFeign**: Cliente HTTP declarativo para consumo da API externa Fipe.
+- **SQLite**: Banco de dados relacional em arquivo para persistência simplificada.
+- **Lombok**: Redução de código boilerplate.
 
-## 🛠️ Funcionalidades
-- Consulta de marcas, modelos e anos através da API da Tabela Fipe.
-- Análise de preços de veículos.
-- Interface responsiva e otimizada.
+## 🛠️ Funcionalidades Implementadas
+- [x] Integração com API FIPE via Feign Client.
+- [x] Persistência de consultas realizadas em banco de dados local.
+- [x] Lógica de negócio: Identificação de veículos com variação de preço > 11%.
+- [x] Interface responsiva para listagem e filtros.
 
 ## 🔧 Como Executar
-*(Aqui você adicionará os comandos de `npm install` / `ng serve` para o Angular e `./mvnw spring-boot:run` para o Java)*
+
+### Passo 1: Backend
+```bash
+cd backend
+./mvnw clean install
+./mvnw spring-boot:run
