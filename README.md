@@ -16,12 +16,6 @@ Este projeto integra uma aplicação **Angular 14** com um microsserviço **Java
 - **SQLite**: Banco de dados relacional em arquivo para persistência simplificada.
 - **Lombok**: Redução de código boilerplate.
 
-## 🛠️ Funcionalidades Implementadas
-- [x] Integração com API FIPE via Feign Client.
-- [x] Persistência de consultas realizadas em banco de dados local.
-- [x] Lógica de negócio: Identificação de veículos com variação de preço > 11%.
-- [x] Interface responsiva para listagem e filtros.
-
 ## 🔧 Como Executar
 
 ### Passo 1: Backend
