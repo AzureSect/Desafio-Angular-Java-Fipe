@@ -1,0 +1,64 @@
+<div class="container mx-auto px-4 py-8 flex flex-col items-center">
+  <div class="search-container">
+
+    <header class="mb-10">
+      <h2 class="text-3xl font-bold text-blue-700 mb-3">Configure sua busca</h2>
+      <p class="text-slate-600">Selecione os critérios para visualizar o preço médio.</p>
+    </header>
+
+    <form [formGroup]="formFipe" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <div class="flex flex-col">
+        <label class="field-label">Tipo de Veículo</label>
+        <select formControlName="tipo" class="select-custom">
+          <option value="">Selecione o tipo...</option>
+          <option *ngFor="let t of tiposVeiculo" [value]="t.id">{{ t.nome }}</option>
+        </select>
+      </div>
+
+      <ng-container *ngIf="formFipe.get('tipo')?.value">
+
+        <div class="flex flex-col">
+          <label class="field-label">Marca</label>
+          <select formControlName="marca" class="select-custom">
+            <option value="">Selecione...</option>
+            <option *ngFor="let marca of marcas" [value]="marca.codigo">{{ marca.nome }}</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col">
+          <label class="field-label">Modelo</label>
+          <select formControlName="modelo" class="select-custom">
+            <option value="">Selecione...</option>
+            <option *ngFor="let modelo of modelos" [value]="modelo.codigo">{{ modelo.nome }}</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col">
+          <label class="field-label">Ano</label>
+          <select formControlName="ano" class="select-custom">
+            <option value="">Selecione...</option>
+            <option *ngFor="let ano of anos" [value]="ano.codigo">{{ ano.nome }}</option>
+          </select>
+        </div>
+
+        <div class="footer-actions">
+          <div class="flex gap-3">
+            <button type="button" (click)="limparFormulario()" class="btn-base btn-limpar">
+              Limpar
+            </button>
+            <button type="button" (click)="voltarHome()" class="btn-base btn-voltar">
+              Voltar
+            </button>
+          </div>
+
+          <button type="button" (click)="pesquisar()" [disabled]="formFipe.invalid" class="btn-base btn-consultar">
+            Consultar Preço
+          </button>
+        </div>
+
+      </ng-container>
+
+    </form>
+  </div>
+</div>

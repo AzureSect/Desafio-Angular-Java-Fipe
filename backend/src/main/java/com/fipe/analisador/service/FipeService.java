@@ -32,4 +32,29 @@ public class FipeService {
     public List<ItemFipeDTO> listarAnos(String tipo, String marcaId, String modeloId) {
         return fipeClient.buscarAnos(token, tipo, marcaId, modeloId);
     }
+
+    public VeiculoDTO obterDetalhes(String tipo, String marcaId, String modeloId, String anoId) {
+        
+        VeiculoFipeResponseDTO resp = fipeClient.obterDetalhes(token, tipo, marcaId, modeloId, anoId);
+
+        return new VeiculoDTO(
+            resp.codigoFipe(),
+            resp.modelo(),
+            resp.marca(),
+            resp.modelo(),
+            resp.anoModelo().toString(),
+            resp.combustivel(),
+            null,
+            resp.siglaCombustivel(),
+            "18/01/2026",
+            null,
+            null,
+            null,
+            null,
+            0.0,
+            0.0,
+            0.0,
+            null 
+        );
+    }
 }
