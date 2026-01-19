@@ -1,52 +1,73 @@
 # 🚗 Desafio Fullstack: Analisador Tabela Fipe
 
-Este projeto integra uma aplicação **Angular 14** com um microsserviço **Java 17 (Spring Boot 4)** para consulta, análise de variação de preços e histórico de veículos baseados na API Fipe.
+Este projeto integra **Angular 14** com um **microsserviço Java 17 (Spring Boot 4)** para consulta, análise de variação de preços e histórico de veículos usando a API Fipe.online.
 
-## 🚀 Tecnologias e Versões
+---
+
+## 🚀 Tecnologias Utilizadas
 
 ### Frontend
 
-- **Angular 14**: Framework base para a interface SPA.
-- **Tailwind CSS**: Estilização utility-first para design moderno (Pill-Design).
-- **TypeScript**: Tipagem estática para maior segurança no desenvolvimento.
+- **Angular 14**: Framework SPA moderno.
+- **Tailwind CSS**: Estilização utility-first (design clean).
+- **TypeScript**: Tipagem estática.
 
 ### Backend
 
-- **Java 17**: Versão base para o microsserviço.
-- **Spring Boot 4.x**: Framework de última geração para APIs RESTful.
-- **Spring Cloud OpenFeign**: Cliente HTTP declarativo para consumo da API externa.
-- **Lombok**: Redução de código boilerplate.
+- **Java 17**
+- **Spring Boot 4.x**: APIs RESTful.
+- **Spring Cloud OpenFeign**: Cliente HTTP para consumir API externa.
+- **Lombok**: Redução de boilerplate.
 
 ---
 
 ## 🔑 Configuração da API Externa (Fipe.online)
 
-Este projeto consome dados reais através da [Fipe.online](https://fipe.online). Para rodar a aplicação, você precisará de uma chave de API:
+O backend consome dados reais da **Fipe.online**. Para rodar:
 
-1. Acesse [fipe.online/dashboard/keys](https://fipe.online/dashboard/keys).
+1. Acesse [fipe.online/dashboard/keys](https://fipe.online/dashboard/keys)
 2. Gere sua chave de acesso.
-3. Utilize-a para subir o servidor conforme as instruções abaixo.
+3. Defina a variável de ambiente `FIPE_TOKEN` antes de iniciar o backend.
 
 ---
 
 ## 🔧 Como Executar
 
-### 1. Backend
+### 1️⃣ Backend
 
-O backend utiliza **Variáveis de Ambiente** para proteger sua chave de API.
-
-**No Windows (PowerShell):**
+#### Windows (PowerShell)
 
 ```powershell
 cd backend
-$env:FIPE_TOKEN="SUA_CHAVE_AQUI"; ./mvnw spring-boot:run
+$env:FIPE_TOKEN="SUA_CHAVE_AQUI"
+./mvnw spring-boot:run
 ```
 
-**No Linux :**
+#### Linux / Mac
+
+```bash
 cd backend
 FIPE_TOKEN="SUA_CHAVE_AQUI" ./mvnw spring-boot:run
+```
 
-**No Front :**
+> ⚠️ Certifique-se que a porta padrão do backend (8081) esteja livre.
+
+---
+
+### 2️⃣ Frontend
+
+```bash
 cd frontend
 npm install
 ng serve
+```
+
+- O frontend estará disponível em `http://localhost:4200`
+- Certifique-se de que a URL da API no `environment.ts` aponte para `http://localhost:8081`.
+
+---
+
+## 📌 Observações
+
+- O backend consome um **repositório externo** via OpenFeign.
+- Este projeto é estruturado como **mono-repositório**, com **frontend** e **backend** separados em pastas distintas.
