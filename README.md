@@ -71,3 +71,4 @@ ng serve
 
 - O backend consome um **repositório externo** via OpenFeign.
 - Este projeto é estruturado como **mono-repositório**, com **frontend** e **backend** separados em pastas distintas.
+- O serviço REST foi adaptado para calcular o valor do veículo e a variação percentual apenas com os registros disponíveis fornecidos pela API Fipe.online, em vez de percorrer todos os anos desde a fabricação.
