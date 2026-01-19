@@ -1,103 +1,108 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FipeService } from 'src/app/services/fipe.service';
+import { FipeService } from '../../services/fipe.service';
 
 @Component({
   selector: 'app-consulta-fipe',
   templateUrl: './consulta-fipe.component.html',
   styleUrls: ['./consulta-fipe.component.css'],
 })
-export class ConsultaFipeComponent implements OnInit {
-  formFipe: FormGroup;
-
-  tiposVeiculo = [
-    { id: 'carros', nome: 'Carro' },
-    { id: 'motos', nome: 'Moto' },
-    { id: 'caminhoes', nome: 'Caminhão' },
-  ];
+export class ConsultaFipeComponent {
+  tipo: string = '';
+  marca: string = '';
+  modelo: any = '';
+  ano: any = null;
 
   marcas: any[] = [];
   modelos: any[] = [];
   anos: any[] = [];
 
   constructor(
-    private router: Router,
-    private fb: FormBuilder,
     private fipeService: FipeService,
-  ) {
-    this.formFipe = this.fb.group({
-      tipo: ['', Validators.required],
-      marca: [{ value: '', disabled: true }, Validators.required],
-      modelo: [{ value: '', disabled: true }, Validators.required],
-      ano: [{ value: '', disabled: true }, Validators.required],
-    });
-  }
+    private router: Router,
+  ) {}
 
-  ngOnInit(): void {
-    this.formFipe.get('tipo')?.valueChanges.subscribe((tipo) => {
-      this.resetarCamposApos('tipo');
-      if (tipo) {
-        this.fipeService.listarMarcas(tipo).subscribe((dados) => {
-          this.marcas = dados;
-          this.formFipe.get('marca')?.enable();
-        });
-      }
-    });
-
-    this.formFipe.get('marca')?.valueChanges.subscribe((marcaId) => {
-      this.resetarCamposApos('marca');
-      const tipo = this.formFipe.get('tipo')?.value;
-      if (marcaId && tipo) {
-        this.fipeService.listarModelos(tipo, marcaId).subscribe((dados) => {
-          this.modelos = dados;
-          this.formFipe.get('modelo')?.enable();
-        });
-      }
-    });
-
-    this.formFipe.get('modelo')?.valueChanges.subscribe((modeloId) => {
-      this.resetarCamposApos('modelo');
-      const tipo = this.formFipe.get('tipo')?.value;
-      const marcaId = this.formFipe.get('marca')?.value;
-      if (modeloId && tipo && marcaId) {
-        this.fipeService
-          .listarAnos(tipo, marcaId, modeloId)
-          .subscribe((dados) => {
-            this.anos = dados;
-            this.formFipe.get('ano')?.enable();
-          });
-      }
-    });
-  }
-
-  resetarCamposApos(campo: string) {
-    if (campo === 'tipo') {
-      this.formFipe.get('marca')?.reset({ value: '', disabled: true });
-      this.marcas = [];
-    }
-    if (campo === 'tipo' || campo === 'marca') {
-      this.formFipe.get('modelo')?.reset({ value: '', disabled: true });
-      this.modelos = [];
-    }
-    this.formFipe.get('ano')?.reset({ value: '', disabled: true });
-    this.anos = [];
-  }
-
-  pesquisar() {
-    if (this.formFipe.valid) {
-      this.router.navigate(['/resultado'], {
-        queryParams: this.formFipe.value,
+  carregarMarcas() {
+    this.limparDadosPosteriores('tipo');
+    if (this.tipo) {
+      this.fipeService.listarMarcas(this.tipo).subscribe((dados) => {
+        this.marcas = dados;
       });
     }
   }
 
-  voltarHome() {
-    this.router.navigate(['/']);
+  carregarModelos() {
+    this.limparDadosPosteriores('marca');
+    if (this.marca) {
+      this.fipeService
+        .listarModelos(this.tipo, this.marca)
+        .subscribe((dados) => {
+          this.modelos = dados;
+          console.log('ESTRUTURA DO MODELO:', dados[0]);
+        });
+    }
+  }
+
+  carregarAnos() {
+    this.limparDadosPosteriores('modelo');
+    if (this.modelo) {
+      this.fipeService
+        .listarAnos(this.tipo, this.marca, this.modelo)
+        .subscribe((dados) => {
+          this.anos = dados;
+        });
+    }
+  }
+
+  limparDadosPosteriores(nivel: string) {
+    if (nivel === 'tipo') {
+      this.marca = '';
+      this.marcas = [];
+    }
+    if (nivel === 'tipo' || nivel === 'marca') {
+      this.modelo = '';
+      this.modelos = [];
+    }
+    this.ano = '';
+    this.anos = [];
+  }
+  irParaResultado() {
+    console.log('Objeto Ano selecionado:', this.ano);
+
+    const anoIdReal = this.ano?.codigo || this.ano?.code;
+
+    if (!anoIdReal || anoIdReal === 'undefined') {
+      alert(
+        'Erro: O código do ano não foi identificado. Tente selecionar o ano novamente.',
+      );
+      console.error('Conteúdo de this.ano:', this.ano);
+      return;
+    }
+
+    this.fipeService
+      .obterDetalhesPorId(this.tipo, this.marca, this.modelo, anoIdReal)
+      .subscribe({
+        next: (detalhes) => {
+          this.router.navigate(['/resultado'], {
+            queryParams: {
+              tipo: this.tipo,
+              codigoFipe: detalhes.codeFipe,
+              anoId: anoIdReal,
+            },
+          });
+        },
+        error: (err) => {
+          console.error('Erro ao buscar detalhes no Java:', err);
+        },
+      });
   }
 
   limparFormulario() {
-    this.formFipe.reset();
-    this.resetarCamposApos('tipo');
+    this.tipo = '';
+    this.limparDadosPosteriores('tipo');
+  }
+
+  voltarHome() {
+    this.router.navigate(['/']);
   }
 }

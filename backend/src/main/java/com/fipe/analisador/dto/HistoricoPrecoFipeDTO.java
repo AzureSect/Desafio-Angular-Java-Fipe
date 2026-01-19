@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record HistoricoPrecoFipeDTO(
     @JsonProperty("month")
-    String mes,
+    String mesReferencia, 
     
     @JsonProperty("price")
-    String preco,
+    String preco,         
     
-    @JsonProperty("reference")
-    String referencia
+    Double variacao,     
     
-){}
+    String descricao     
+) {}

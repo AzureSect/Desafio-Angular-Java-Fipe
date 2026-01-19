@@ -2,17 +2,91 @@
 @tailwind components;
 @tailwind utilities;
 
-/* styles.css */
+/* RESET E FUNDO AZUL */
+html,
 body {
-  background-color: #e0f2fe;
   margin: 0;
-  font-family: "Segoe UI", Roboto, sans-serif;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #dbeafe !important;
+  font-family: "Inter", sans-serif;
+  overflow: hidden; /* Evita quebras de página */
 }
 
-.main-container {
-  min-height: calc(100vh - 160px);
+/* O CENTRO DA TELA */
+.app-viewport {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 40px 20px;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+/* O CARD (BASEADO NA SUA HOME) */
+.app-card {
+  background-color: #ffffff;
+  width: 90%;
+  max-width: 672px; /* max-w-2xl */
+  border-radius: 1.5rem; /* rounded-3xl */
+  border: 1px solid #e2e8f0; /* border-slate-200 */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* shadow-md */
+  padding: 2.5rem;
+  box-sizing: border-box;
+}
+
+/* Títulos e Textos */
+.app-title {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #1e40af;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.app-subtitle {
+  color: #64748b;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* SELECTS */
+.app-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #cbd5e1;
+  background-color: #f8fafc;
+  font-size: 1rem;
+  outline: none;
+  margin-top: 0.5rem;
+}
+
+/* BOTÕES */
+.app-btn-primary {
+  background-color: #1d4ed8;
+  color: white;
+  font-weight: 700;
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.app-btn-primary:active {
+  transform: scale(0.95);
+}
+.app-btn-primary:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.app-btn-secondary {
+  background-color: #f1f5f9;
+  color: #64748b;
+  font-weight: 700;
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
 }

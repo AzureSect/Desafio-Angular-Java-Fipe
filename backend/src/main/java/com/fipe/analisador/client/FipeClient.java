@@ -37,4 +37,13 @@ public interface FipeClient {
         @PathVariable("marcaId") String marcaId,
         @PathVariable("modeloId") String modeloId,
         @PathVariable("anoId") String anoId);
+
+     @GetMapping("/{tipo}/{codigoFipe}/years/{anoId}/history")
+VeiculoFipeResponseDTO obterHistorico(
+    @RequestHeader("X-Subscription-Token") String token,
+    @PathVariable("tipo") String tipo,
+    @PathVariable("codigoFipe") String codigoFipe,
+    @PathVariable("anoId") String anoId
+);
+
 }

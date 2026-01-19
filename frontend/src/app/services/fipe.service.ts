@@ -11,12 +11,12 @@ export class FipeService {
   constructor(private http: HttpClient) {}
 
   listarMarcas(tipo: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.API}/${tipo}/marcas`);
+    return this.http.get<any[]>(`${this.API}/${tipo.toUpperCase()}/marcas`);
   }
 
   listarModelos(tipo: string, marcaId: string): Observable<any[]> {
     return this.http.get<any[]>(
-      `${this.API}/${tipo}/marcas/${marcaId}/modelos`,
+      `${this.API}/${tipo.toUpperCase()}/marcas/${marcaId}/modelos`,
     );
   }
 
@@ -26,7 +26,30 @@ export class FipeService {
     modeloId: string,
   ): Observable<any[]> {
     return this.http.get<any[]>(
-      `${this.API}/${tipo}/marcas/${marcaId}/modelos/${modeloId}/anos`,
+      `${this.API}/${tipo.toUpperCase()}/marcas/${marcaId}/modelos/${modeloId}/years`,
+    );
+  }
+
+  consultarHistorico(
+    tipo: string,
+    codigoFipe: string,
+    anoId: string,
+  ): Observable<any> {
+    const t = tipo.toUpperCase();
+    return this.http.get(
+      `${this.API}/${t}/${codigoFipe}/years/${anoId}/history`,
+    );
+  }
+
+  obterDetalhesPorId(
+    tipo: string,
+    marcaId: string,
+    modeloId: string,
+    anoId: string,
+  ): Observable<any> {
+    const t = tipo.toUpperCase();
+    return this.http.get<any>(
+      `${this.API}/${t}/marcas/${marcaId}/modelos/${modeloId}/years/${anoId}`,
     );
   }
 }

@@ -6,5 +6,7 @@ public record ItemFipeDTO(
     @JsonProperty("code")
     String codigo, 
     @JsonProperty("name")
-    String nome
+    String nome,
+    @JsonProperty("codeFipe")
+    String codeFipe
 ) {}

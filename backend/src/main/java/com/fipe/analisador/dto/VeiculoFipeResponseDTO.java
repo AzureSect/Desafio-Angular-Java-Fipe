@@ -11,6 +11,6 @@ public record VeiculoFipeResponseDTO(
     @JsonProperty("fuel") String combustivel,
     @JsonProperty("fuelAcronym") String siglaCombustivel,
     @JsonProperty("price") String preco,
-    @JsonProperty("priceHistory") List<HistoricoPrecoFipeDTO> historicoPrecoFipeDTO,
+    @JsonProperty("priceHistory") List<HistoricoPrecoFipeDTO> priceHistory,
     @JsonProperty("vehicleType") Integer tipoVeiculo
 ) {}
