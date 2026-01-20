@@ -47,7 +47,7 @@ $env:FIPE_TOKEN="SUA_CHAVE_AQUI"
 
 ```bash
 cd backend
-FIPE_TOKEN="SUA_CHAVE_AQUI" ./mvnw spring-boot:run
+F$env:FIPE_TOKEN="SUA_CHAVE_AQUI" ./mvnw spring-boot:run
 ```
 
 > ⚠️ Certifique-se que a porta padrão do backend (8081) esteja livre.
